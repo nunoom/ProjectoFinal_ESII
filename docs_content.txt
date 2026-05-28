@@ -1,0 +1,265 @@
+=== CONTEÚDO DO PDF ===
+
+--- Página 1 ---
+ 
+Instituto Superior Politécnico de Tecnologias e Ciências 
+(ISPTEC)  
+Departamento de Engenharia e Tecnologias  
+Engenharia de Software  II 
+ 
+Licenciatura em Engenharia Informática  
+ 
+2025/202 6 
+ 
+ 
+Projecto  FINAL  
+ 
+Judson Paiva  
+judson.paiva@isptec.co.ao  
+
+
+--- Página 2 ---
+ 
+1 Objectivo do Projecto  
+ 
+Este Laboratório  tem como finalidade desenvolver a capacidade do estudante em:  
+a) Compreender o contexto da aplicação “Economia com História – Angola”, 
+analisando os conteúdos históricos e económicos disponibilizados  
+b) Analisar os documentos, entrevistas e atas para extrair requisitos relevantes do 
+sistema  
+c) Identificar e definir claramente os requisitos funcionais, não funcionais e as 
+regras de negócio da aplicação  
+d) Estruturar o problema e propor uma solução coerente, alinhada com as 
+necessidades identificadas  
+e) Pesquisar e fundamentar teoricamente as tecnologias, metodologias e 
+abordagens a serem utilizadas  
+f) Analisar soluções existentes, identificando boas práticas e limitações  
+g) Modelar o sistema por meio de diagramas UML (casos de uso, classes, 
+sequência)  
+h) Definir a arquitetura da solução, incluindo componentes, camadas e 
+tecnologias  
+i) Projetar a experiência do utilizador, diferenciando o painel público e o painel 
+de gestão  
+j) Implementar a persistência de dados utilizando uma base de dados 
+adequada, devidamente estruturada  
+k) Configurar o ambiente de desenvolvimento com controlo de versão utilizando 
+GitHub  
+l) Aplicar uma metodologia ágil (Scrum, Kanban ou XP), organizando o trabalho 
+em ciclos iterativos  
+m) Desenvolver a aplicação com suporte a autenticação e níveis de acesso 
+distintos  
+n) Implementar obrigatoriamente uma aplicação mobile integrada à solução  
+o) Construir funcionalidades essenciais de forma incremental, priorizando a 
+entrega de um MVP  
+
+--- Página 3 ---
+ 
+2 p) Utilizar ferramentas de Inteligência Artificial como apoio à geração de 
+código, mantendo domínio técnico sobre a solução  
+q) Implementar testes automatizados para validação das funcionalidades  
+r) Configurar processos de Integração Contínua (CI/CD) para automação do 
+ciclo de desenvolvimento  
+s) Monitorar e reportar diariamente o progresso do projeto com evidências 
+concretas  
+t) Apresentar periodicamente o estado real da implementação através de 
+demonstrações práticas  
+u) Garantir a implementação de pelo menos 60% dos requisitos até ao marco 
+intermédio definido  
+v) Concluir a implementação de 100% dos requisitos dentro do prazo 
+estabelecido  
+w) Validar o funcionamento global da aplicação com base nos requisitos 
+definidos  
+x) Disponibilizar a solução através de deploy online ou ambiente local funcional  
+y) Documentar todo o processo de forma clara, estruturada e tecnicamente 
+fundamentada    
+
+--- Página 4 ---
+ 
+3 Projeto – Economia com História: Angola  
+No âmbito da unidade curricular, os estudantes desenvolveram um protótipo de 
+uma aplicação educativa denominada “Economia com História – Angola” , 
+baseada em conteúdos históricos e económicos contextualizados, com foco na 
+aprendizagem ativa, participação e desenvolvimento do pensamento crítico, 
+tendo como base os documentos fornecidos pelo Professor Doutor Carlos Lopes.  
+Considera -se concluída a fase de prototipagem. A partir deste momento, o projeto 
+deve evoluir para uma solução tecnicamente fundamentada e próxima de um 
+sistema real, exigindo uma abordagem estruturada, investigativa e alinhada com as 
+boas práticas de Enge nharia de Software.  
+Até 10 de maio de 2026, cada grupo deverá submeter a primeira entrega formal, 
+composta por um relatório técnico acompanhado do protótipo desenvolvido, e 
+iniciar de forma imediata a fase de implementação prática, recorrendo, sempre 
+que pertinente, ao uso de  ferramentas de Inteligência Artificial como apoio à 
+geração de código, sem prejuízo da compreensão técnica das soluções adotadas.  
+O relatório deverá apresentar, de forma clara e coerente, a introdução ao tema, a 
+problemática bem definida, os objetivos geral e específicos, a fundamentação 
+teórica, a análise de soluções existentes, o processo de desenvolvimento já 
+realizado e a descriç ão detalhada do protótipo, incluindo telas e fluxos de interação 
+(criação de conteúdos, discussões, quizzes e demais funcionalidades discutidas em 
+sala).  
+Para o levantamento e refinamento de requisitos, é obrigatório analisar:  
+• Documentos do Professor Doutor Carlos Lopes  
+• Notas da entrevista realizada com o Professor Doutor Carlos Lopes  
+• Atas das apresentações e discussões em sala  
+Com base nessas fontes, os estudantes devem identificar e documentar de forma 
+estruturada:  
+• Requisitos Funcionais   
+
+--- Página 5 ---
+ 
+4 • Requisitos Não Funcionais   
+• Regras de Negócio   
+O projeto deverá incluir a definição clara da arquitetura da solução, devidamente 
+fundamentada, incluindo componentes, camadas, tecnologias e interação entre 
+sistemas.  
+A solução deverá contemplar:  
+• Painel de Gestão (Backoffice)  
+• Painel Público (Frontend)  
+Do ponto de vista técnico, são obrigatórios:  
+• Uso de GitHub com versionamento estruturado  
+• Implementação de testes automatizados, com base em pesquisa  
+• Configuração de CI/CD, com compreensão do processo  
+• Elaboração de diagramas UML e arquitetura  
+• Uso de base de dados obrigatória  
+• Aplicação de metodologias ágeis, com artefactos definidos  
+• Investigação autónoma contínua  
+É obrigatório o desenvolvimento de uma aplicação mobile, integrada à solução.  
+Execução, Acompanhamento e Prazos  
+O projeto será acompanhado de forma contínua e rigorosa, conforme as seguintes 
+diretrizes obrigatórias:  
+• A partir de 04 de maio de 2026, no início de cada semana, cada grupo 
+deverá definir e partilhar as metas semanais  
+• Diariamente, todos os grupos deverão publicar no grupo da disciplina de 
+Engenharia de Software:  
+o O que foi desenvolvido no dia  
+
+--- Página 6 ---
+ 
+5 o Evidências do progresso  
+• Apresentações diárias obrigatórias :  
+o Grupos serão selecionados aleatoriamente  
+o Deverão apresentar diretamente ao professor o que já foi 
+implementado  
+o Não se trata de explicação teórica, mas sim de demonstração prática 
+do trabalho realizado  
+o Esta atividade é obrigatória e avaliativa  
+Marcos de Desenvolvimento  
+• Até 25 de maio de 2026:  
+o Pelo menos 60% dos requisitos devem estar implementados e funcionais  
+• Até 10 de junho de 2026:  
+o 100% dos requisitos devem estar implementados  
+Caso existam requisitos não implementados:  
+• A penalização poderá chegar a nota zero, dependendo do impacto na 
+funcionalidade global do sistema  
+Requisitos de Persistência de Dados  
+• Projetos sem base de dados não serão considerados  
+• O uso de ficheiros como substituto de base de dados será desconsiderado  
+• Caso seja utilizado um banco de dados NoSQL, os estudantes deverão:  
+o Justificar tecnicamente a escolha  
+o Fundamentar com base no contexto da aplicação  
+o Demonstrar compreensão da abordagem adotada  
+• Caso seja utilizado um banco de dados relacional, os estudantes deverão 
+demonstrar domínio de:  
+
+--- Página 7 ---
+ 
+6 o Modelagem relacional  
+o Normalização  
+o Integridade de dados  
+o Consultas (SQL)  
+Considerações Finais  
+A solução deverá ser disponibilizada através de deploy online ou apresentada em 
+ambiente local plenamente funcional.  
+Após a entrega do relatório, os grupos deverão avançar para o desenvolvimento 
+do MVP, com entregas incrementais e aplicação consistente da metodologia 
+escolhida.  
+Espera -se que o projeto demonstre:  
+• Coerência entre problema, solução e implementação  
+• Capacidade de investigação e fundamentação técnica  
+• Aplicação prática de conceitos de Engenharia de Software  
+• Maturidade no desenvolvimento de sistemas reais  
+
+
+=== CONTEÚDO DO DOCX ===
+ENGENHARIA DE SOFTWARE II
+Economia com História – Angola
+DOCUMENTO DE VISÃO
+Plataforma Educacional Digital de História Económica Angolana
+Versão 1.0  ·  30 de Março de 2026
+1. Introdução
+1.1 Propósito do Documento
+Este Documento de Visão define o âmbito, os objetivos estratégicos, as regras de negócio, os requisitos funcionais e não funcionais, e as restrições da plataforma educacional digital "Economia com História – Angola". Destina-se a todos os stakeholders do projeto: equipa de desenvolvimento, cliente (professor do DCSA) e o professor Judson que rege a cadeira de engenharia de software. Serve como artefacto de entrada para as fases de Elaboração e Construção do processo RUP adotado.
+1.2 Âmbito do Produto
+O produto é uma aplicação educacional móvel e web chamada Economia com História – Angola (doravante EHA). A plataforma visa democratizar o acesso ao conhecimento sobre história económica angolana através de conteúdos interativos, quizzes, fóruns de discussão e rankings competitivos, com suporte offline.
+1.3 Definições e Acrónimos
+1.4 Referências
+Proposta do Grupo — ES_II_proposta1.pdf (30/03/2026)
+Rational Unified Process (RUP) — Kruchten, P. (2003). The Rational Unified Process: An Introduction. Addison-Wesley.
+Khan Academy Architecture & Pedagogy — khanacademy.org/about
+Duolingo Learning Design Principles — research.duolingo.com
+2. Posicionamento do Produto
+2.1 Oportunidade de Negócio
+Angola enfrenta três desafios estruturais no sector educativo que a EHA pretende mitigar:
+Desigualdade territorial: o acesso a materiais didáticos de qualidade concentra-se em Luanda, deixando províncias como Huambo, Bié ou Malanje sub-representadas.
+Escassez de conteúdos contextualizados: os currículos existentes recorrem frequentemente a manuais estrangeiros que ignoram a realidade económica angolana (petróleo, kwanza, reformas monetárias, impacto da guerra civil).
+Baixa integração tecnológica no ensino: apesar da penetração crescente dos smartphones, não existe uma plataforma nacional de e-learning dedicada à história económica.
+Plataformas internacionais de referência — Khan Academy, Duolingo, Coursera e Quizlet — demonstram que gamificação, microaprendizagem e funcionamento offline aumentam significativamente a retenção de conhecimento e a adesão dos utilizadores. A EHA inspira-se nestas melhores práticas e adapta-as ao contexto angolano.
+2.2 Declaração do Problema
+2.3 Declaração de Posição do Produto
+3. Stakeholders e Utilizadores
+3.1 Stakeholders
+3.2 Perfis de Utilizador
+Utilizador Estudante
+Idade: 14+
+Dispositivo primário: smartphone Android de gama média, tablet e/ou computador
+Conectividade: irregular (zonas urbanas e periurbanas)
+Objetivo: aprender,debater, testar conhecimentos, competir no ranking
+Necessidades especiais: interface simplificada, conteúdos em português angolano, modo offline
+Utilizador Professor / Educador
+Idade: 28+
+Dispositivo primário: smartphone ou tablet e computador
+Objetivo: acompanhar progresso dos alunos, partilhar recursos
+Necessidades especiais: painel de acompanhamento de turma (fase futura)
+Utilizador Administrador
+Perfil — gestor de conteúdos
+Objetivo: gerir conteúdos, moderar fórum, administrar utilizadores
+4. Regras de Negócio
+As regras de negócio definem as políticas, condições e restrições que governam o comportamento da plataforma EHA. Foram definidas com base na análise do projeto, nas melhores práticas de plataformas educacionais de referência (Duolingo, Khan Academy, Coursera, Quizlet) e no contexto angolano.
+4.1 Regras de Acesso e Autenticação
+4.2 Regras de Gestão de Conteúdos
+4.3 Regras do Sistema de Quiz
+4.4 Regras do Ranking
+4.5 Regras do Fórum
+4.6 Regras de Subscrição e Monetização
+5. Requisitos Funcionais
+Os requisitos funcionais descrevem os comportamentos e funcionalidades que o sistema EHA deve implementar. A prioridade foi definida usando a escala MoSCoW: Must Have (M), Should Have (S), Could Have (C), Won't Have nesta iteração (W).
+5.1 Módulo de Autenticação e Perfil (RF-01 a RF-10)
+5.2 Módulo de Exploração de Conteúdos (RF-11 a RF-20)
+5.3 Módulo de Quiz Interativo (RF-21 a RF-30)
+5.4 Módulo de Ranking (RF-31 a RF-36)
+5.5 Módulo de Fórum (RF-37 a RF-44)
+5.6 Módulo de Administração (RF-45 a RF-50)
+6. Requisitos Não Funcionais
+Os requisitos não funcionais definem os atributos de qualidade que o sistema EHA deve satisfazer. São tão críticos quanto os funcionais para o sucesso da plataforma.
+6.1 Desempenho
+6.2 Disponibilidade e Fiabilidade
+6.3 Segurança
+6.4 Usabilidade
+6.5 Manutenibilidade e Escalabilidade
+6.6 Restrições Técnicas
+7. Sumário de Casos de Uso
+Os seguintes casos de uso foram identificados para a fase de Elaboração. Os 5 assinalados com (*) serão detalhados no documento de Especificação de Casos de Uso.
+8. Lista de Riscos Iniciais
+9. Plano de Iterações — Visão Geral
+10. Critérios de Aceitação do MVP
+O produto será considerado aceite pelo cliente quando satisfizer todos os critérios seguintes:
+Todos os 50 requisitos funcionais de prioridade Must Have estão implementados e testados.
+A aplicação funciona em modo offline para conteúdos descarregados e quizzes, com sincronização ao retomar ligação.
+O tempo de carregamento inicial é inferior a 3 segundos em ligação 3G (testado em dispositivo Android de gama média).
+Os testes de aceitação (UAT) com pelo menos 5 utilizadores representativos não revelam erros críticos (severity 1) não resolvidos.
+Todos os artefactos RUP obrigatórios estão completos, revistos e entregues: Documento de Visão, 5 Casos de Uso detalhados, Diagrama de Classes, ERD, Baseline Arquitectural, Plano de Testes, Relatório de Testes de Aceitação e Manual do Utilizador.
+A interface respeita a paleta bordeaux/cinzento e é navegável sem formação prévia (validado por teste de usabilidade de 5 minutos com utilizador novo).
+O código-fonte está versionado no GitHub com histórico de commits por iteração e documentação de setup no README.
+11. Apêndice — Benchmarking com Plataformas de Referência
+A tabela seguinte resume as funcionalidades das principais plataformas educacionais que inspiraram o design do EHA:
+Documento de Visão — Economia com História – Angola — v1.0 — 30/03/2026
+Elaborado pela equipa ES-II: Paula Alexandre (M1) · Khelv Costa (M2) · Rafaela (M3) · Nuno Mendes (M4)
