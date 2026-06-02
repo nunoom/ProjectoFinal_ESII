@@ -14,9 +14,11 @@ import java.util.List;
 public class ContentService {
 
     private final ContentRepository repository;
+    private final com.eha.contentservice.repository.CategoryRepository categoryRepository;
 
-    public ContentService(ContentRepository repository) {
+    public ContentService(ContentRepository repository, com.eha.contentservice.repository.CategoryRepository categoryRepository) {
         this.repository = repository;
+        this.categoryRepository = categoryRepository;
     }
 
     public Page<ContentSummaryResponse> listContents(Pageable pageable) {
@@ -56,5 +58,30 @@ public class ContentService {
             content.getViews(),
             content.getCreatedAt()
         );
+    }
+
+    public ContentDetailResponse createContent(java.util.Map<String, Object> req) {
+        String title = (String) req.get("title");
+        String summary = (String) req.get("summary");
+        String text = (String) req.get("content");
+        String imageUrl = (String) req.get("imageUrl");
+        String categorySlug = (String) req.get("category");
+        Integer readTime = req.get("readTime") != null ? Integer.valueOf(req.get("readTime").toString()) : 5;
+
+        com.eha.contentservice.model.Category category = categoryRepository.findBySlug(categorySlug)
+            .orElseThrow(() -> new IllegalStateException("Category not found"));
+
+        Content content = new Content();
+        content.setTitle(title);
+        content.setSummary(summary);
+        content.setContent(text);
+        content.setImageUrl(imageUrl);
+        content.setCategory(category);
+        content.setReadTime(readTime);
+        content.setViews(0);
+        content.setStatus("PUBLISHED");
+
+        Content saved = repository.save(content);
+        return toDetail(saved);
     }
 }

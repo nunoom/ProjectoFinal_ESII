@@ -52,4 +52,9 @@ public class AuthController {
     public ResponseEntity<ApiResponse<MessageResponse>> confirmEmail(@RequestParam("token") String token) {
         return ResponseEntity.ok(ApiResponse.success(authService.confirmEmail(token), "OK"));
     }
+
+    @PutMapping("/internal/role")
+    public void updateRoleInternal(@RequestParam("userId") Long userId, @RequestParam("role") String role) {
+        authService.updateUserRole(userId, role);
+    }
 }
