@@ -40,26 +40,40 @@ public class AuthService {
     }
 
     public MessageResponse register(RegisterRequest request) {
-        if (userRepository.findByEmail(request.email()).isPresent()) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new ApiException("EMAIL_EXISTS", "Email already registered");
         }
 
         AuthUser user = new AuthUser();
-        user.setName(request.name());
-        user.setEmail(request.email());
-        user.setPassword(passwordEncoder.encode(request.password()));
-        user.setBirthDate(request.birthDate());
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setBirthDate(request.getBirthDate());
         user.setRole("ROLE_STUDENT");
         user.setStatus("ACTIVE");
         user.setEmailConfirmed(false);
         user.setEmailConfirmationToken(UUID.randomUUID().toString());
         AuthUser saved = userRepository.save(user);
 
+        // Call user-service to create user profile
+        try {
+            org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate();
+            java.util.Map<String, Object> profileReq = java.util.Map.of(
+                "id", saved.getId(),
+                "name", saved.getName(),
+                "email", saved.getEmail(),
+                "birthDate", saved.getBirthDate() != null ? saved.getBirthDate().toString() : ""
+            );
+            restTemplate.postForObject("http://user-service:8082/api/users/internal/create", profileReq, Object.class);
+        } catch (Exception e) {
+            System.err.println("Failed to replicate profile to user-service: " + e.getMessage());
+        }
+
         return new MessageResponse("User registered. Please confirm email.", saved.getId());
     }
 
     public AuthResponse login(LoginRequest request) {
-        AuthUser user = userRepository.findByEmail(request.email())
+        AuthUser user = userRepository.findByEmail(request.getEmail())
             .orElseThrow(() -> new ApiException("INVALID_CREDENTIALS", "Invalid credentials"));
 
         if (!user.isEmailConfirmed()) {
@@ -70,7 +84,7 @@ public class AuthService {
             throw new ApiException("ACCOUNT_LOCKED", "Account locked. Try later.");
         }
 
-        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             int attempts = user.getFailedAttempts() + 1;
             user.setFailedAttempts(attempts);
             if (attempts >= MAX_FAILED_ATTEMPTS) {
@@ -94,7 +108,7 @@ public class AuthService {
     }
 
     public AuthResponse refresh(RefreshRequest request) {
-        RefreshToken stored = refreshTokenRepository.findByToken(request.refreshToken())
+        RefreshToken stored = refreshTokenRepository.findByToken(request.getRefreshToken())
             .orElseThrow(() -> new ApiException("INVALID_REFRESH", "Refresh token invalid"));
 
         if (stored.isRevoked() || stored.getExpiresAt().isBefore(Instant.now())) {
@@ -114,7 +128,7 @@ public class AuthService {
     }
 
     public MessageResponse forgotPassword(ForgotPasswordRequest request) {
-        AuthUser user = userRepository.findByEmail(request.email())
+        AuthUser user = userRepository.findByEmail(request.getEmail())
             .orElseThrow(() -> new ApiException("NOT_FOUND", "User not found"));
 
         user.setPasswordResetToken(UUID.randomUUID().toString());
@@ -125,14 +139,14 @@ public class AuthService {
     }
 
     public MessageResponse resetPassword(ResetPasswordRequest request) {
-        AuthUser user = userRepository.findByPasswordResetToken(request.token())
+        AuthUser user = userRepository.findByPasswordResetToken(request.getToken())
             .orElseThrow(() -> new ApiException("INVALID_TOKEN", "Invalid token"));
 
         if (user.getPasswordResetExpires() == null || user.getPasswordResetExpires().isBefore(Instant.now())) {
             throw new ApiException("INVALID_TOKEN", "Token expired");
         }
 
-        user.setPassword(passwordEncoder.encode(request.newPassword()));
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         user.setPasswordResetToken(null);
         user.setPasswordResetExpires(null);
         userRepository.save(user);
@@ -149,6 +163,13 @@ public class AuthService {
         userRepository.save(user);
 
         return new MessageResponse("Email confirmed", user.getId());
+    }
+
+    public void updateUserRole(Long userId, String role) {
+        AuthUser user = userRepository.findById(userId)
+            .orElseThrow(() -> new ApiException("NOT_FOUND", "User not found"));
+        user.setRole(role);
+        userRepository.save(user);
     }
 
     private RefreshToken issueRefreshToken(AuthUser user) {

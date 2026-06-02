@@ -1,0 +1,3 @@
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/api-gateway/src/main/java/com/eha/apigateway/ApiGatewayApplication.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/api-gateway/src/main/java/com/eha/apigateway/config/GatewayConfig.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/api-gateway/src/main/java/com/eha/apigateway/security/JwtGatewayFilter.java

@@ -1,0 +1,15 @@
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/ContentServiceApplication.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/config/HeaderAuthenticationFilter.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/config/SecurityConfig.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/controller/ContentController.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/controller/HealthController.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/dto/response/ApiResponse.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/dto/response/ContentDetailResponse.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/dto/response/ContentSummaryResponse.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/exception/ApiError.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/exception/GlobalExceptionHandler.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/model/Category.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/model/Content.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/repository/CategoryRepository.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/repository/ContentRepository.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/content-service/src/main/java/com/eha/contentservice/service/ContentService.java

@@ -1,0 +1,13 @@
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/UserServiceApplication.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/config/HeaderAuthenticationFilter.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/config/SecurityConfig.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/controller/HealthController.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/controller/UserProfileController.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/dto/request/UpdateProfileRequest.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/dto/response/ApiResponse.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/dto/response/UserProfileResponse.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/exception/ApiError.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/exception/GlobalExceptionHandler.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/model/UserProfile.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/repository/UserProfileRepository.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/user-service/src/main/java/com/eha/userservice/service/UserProfileService.java

@@ -27,4 +27,9 @@ public class ContentController {
     public ApiResponse<ContentDetailResponse> detail(@PathVariable Long id) {
         return ApiResponse.success(service.getContent(id), "OK");
     }
+
+    @PostMapping("/internal/create")
+    public ApiResponse<ContentDetailResponse> createInternal(@RequestBody java.util.Map<String, Object> req) {
+        return ApiResponse.success(service.createContent(req), "OK");
+    }
 }

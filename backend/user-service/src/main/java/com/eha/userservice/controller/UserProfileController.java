@@ -27,4 +27,28 @@ public class UserProfileController {
                                                    @Valid @RequestBody UpdateProfileRequest request) {
         return ApiResponse.success(service.updateProfile(userId, request), "OK");
     }
+
+    @PostMapping("/internal/create")
+    public ApiResponse<UserProfileResponse> createInternal(@RequestBody java.util.Map<String, Object> request) {
+        Long id = Long.valueOf(request.get("id").toString());
+        String name = (String) request.get("name");
+        String email = (String) request.get("email");
+        String birthDateStr = (String) request.get("birthDate");
+        return ApiResponse.success(service.createProfile(id, name, email, birthDateStr), "Profile Created");
+    }
+
+    @PostMapping("/internal/{id}/points/add")
+    public ApiResponse<UserProfileResponse> addPointsInternal(@PathVariable Long id, @RequestParam int points) {
+        return ApiResponse.success(service.addPoints(id, points), "Points Added");
+    }
+
+    @GetMapping("/internal/profile/{id}")
+    public UserProfileResponse getProfileInternal(@PathVariable Long id) {
+        return service.getProfile(id);
+    }
+
+    @GetMapping("/internal/all")
+    public java.util.List<UserProfileResponse> getAllProfilesInternal() {
+        return service.getAllProfiles();
+    }
 }
