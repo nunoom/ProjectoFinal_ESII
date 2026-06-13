@@ -38,11 +38,25 @@ export interface Question {
   text: string;
   type: 'MULTIPLE_CHOICE' | 'TRUE_FALSE';
   options: QuestionOption[];
+  correctOptionId: number;
+  explanation: string;
 }
 
 export interface QuestionOption {
   id: number;
   text: string;
+}
+
+export interface ForumReply {
+  id: number;
+  topicId: number;
+  author: {
+    id: number;
+    name: string;
+    photoUrl?: string;
+  };
+  content: string;
+  createdAt: string;
 }
 
 export interface RankingEntry {
