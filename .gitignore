@@ -52,3 +52,6 @@ Relatorio_Trabalho_Final.pdf
 
 # ---------- Cópias de segurança ----------
 mobile copy/
+
+# Segredos e artefactos
+.env

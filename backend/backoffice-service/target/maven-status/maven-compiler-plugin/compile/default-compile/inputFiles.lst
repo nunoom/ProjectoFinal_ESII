@@ -1,0 +1,11 @@
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/BackofficeServiceApplication.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/config/HeaderAuthenticationFilter.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/config/SecurityConfig.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/controller/AdminController.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/controller/HealthController.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/dto/response/ApiResponse.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/exception/ApiError.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/exception/GlobalExceptionHandler.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/model/AuditLog.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/repository/AuditLogRepository.java
+/Users/vleonel/Desktop/ProjectoFinal_ESII/backend/backoffice-service/src/main/java/com/eha/backofficeservice/service/BackofficeService.java
