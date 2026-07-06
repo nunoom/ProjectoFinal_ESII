@@ -1,0 +1,54 @@
+# ---------- Dependências e builds ----------
+node_modules/
+.next/
+target/
+.expo/
+.venv/
+dist/
+*.log
+
+# ---------- Sistema operativo / IDE ----------
+.DS_Store
+.vscode/
+.idea/
+
+# ---------- Ficheiros de assistentes de IA ----------
+CLAUDE.md
+AGENTS.md
+.claude/
+
+# ---------- Documentos de trabalho (não fazem parte da entrega) ----------
+UPDATE_SUMMARY.md
+SAFE_AREA_FIX.md
+UI_IMPROVEMENTS.md
+CONTENTS_PAGES_SUMMARY.md
+FRONTEND_SUMMARY.md
+STATUS_DOCUMENTACAO.md
+frontend/MVP_STATUS.md
+frontend/NEXT_STEPS.md
+frontend/VISUAL_GUIDE.md
+mobile/APP_COMPLETO.md
+mobile/PRONTO_PARA_TESTAR.md
+mobile/INSTRUCOES_FINAIS.md
+mobile/SETUP_RAPIDO.md
+
+# ---------- Scripts auxiliares de documentação ----------
+generate_docs.py
+extract_docs.py
+populate_docs.py
+complete_all_docs.py
+complete_remaining_docs.sh
+docs_content.txt
+mobile/copy_files.sh
+mobile/create_all_screens.sh
+
+# ---------- Modelo do TCC e relatório (entregues à parte) ----------
+TCC_MODELO*
+RELATORIO_TFC_EHA.docx
+RELATORIO_TFC_EHA.pdf
+RELATORIO_TFC_EHA.md
+Relatorio_Trabalho_Final.pdf
+~$*
+
+# ---------- Cópias de segurança ----------
+mobile copy/
