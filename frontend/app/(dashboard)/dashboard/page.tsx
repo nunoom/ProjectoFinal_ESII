@@ -1,14 +1,27 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowRight, BookOpen, Brain, Trophy, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { mockContents, mockQuizzes, mockRanking } from '@/data/mockData';
+import { fetchContents, fetchQuizzes, fetchRanking, fetchMe } from '@/lib/api';
+import { useApi } from '@/lib/useApiData';
+import { PageLoading, PageError } from '@/components/ui/Status';
 import { formatDate, formatNumber } from '@/lib/utils';
 
 export default function DashboardPage() {
-  const recentContents = mockContents.slice(0, 3);
-  const featuredQuizzes = mockQuizzes.slice(0, 2);
-  const topRanking = mockRanking.slice(0, 3);
+  const { data: contents, loading, error, retry } = useApi(fetchContents);
+  const { data: quizzes } = useApi(fetchQuizzes);
+  const { data: rankingData } = useApi(fetchRanking);
+  const { data: user } = useApi(fetchMe);
+
+  if (loading) return <PageLoading />;
+  if (error || !contents) return <PageError message={error ?? 'Erro ao carregar'} onRetry={retry} />;
+
+  const recentContents = contents.slice(0, 3);
+  const featuredQuizzes = (quizzes ?? []).slice(0, 2);
+  const topRanking = (rankingData?.rankings ?? []).slice(0, 3);
+  const completedCount = (quizzes ?? []).filter((q) => q.completed).length;
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
@@ -44,8 +57,8 @@ export default function DashboardPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">Conteúdos Lidos</p>
-                <p className="text-2xl font-bold text-gray-900">12</p>
+                <p className="text-sm font-medium text-gray-500">Conteúdos Disponíveis</p>
+                <p className="text-2xl font-bold text-gray-900">{contents.length}</p>
               </div>
               <div className="rounded-full bg-blue-100 p-3">
                 <BookOpen className="h-6 w-6 text-blue-600" />
@@ -59,7 +72,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-500">Quizzes Feitos</p>
-                <p className="text-2xl font-bold text-gray-900">8</p>
+                <p className="text-2xl font-bold text-gray-900">{completedCount}</p>
               </div>
               <div className="rounded-full bg-green-100 p-3">
                 <Brain className="h-6 w-6 text-green-600" />
@@ -73,7 +86,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-500">Pontos Totais</p>
-                <p className="text-2xl font-bold text-gray-900">350</p>
+                <p className="text-2xl font-bold text-gray-900">{user?.points ?? '—'}</p>
               </div>
               <div className="rounded-full bg-yellow-100 p-3">
                 <Trophy className="h-6 w-6 text-yellow-600" />
@@ -87,7 +100,9 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-500">Posição no Ranking</p>
-                <p className="text-2xl font-bold text-gray-900">#6</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {rankingData?.currentUser ? `#${rankingData.currentUser.position}` : '—'}
+                </p>
               </div>
               <div className="rounded-full bg-purple-100 p-3">
                 <TrendingUp className="h-6 w-6 text-purple-600" />
@@ -185,7 +200,7 @@ export default function DashboardPage() {
                   </p>
                   {quiz.completed && (
                     <span className="text-xs text-green-600 font-medium">
-                      ✓ Completado
+                      Completado
                     </span>
                   )}
                 </Link>

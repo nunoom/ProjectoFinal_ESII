@@ -88,6 +88,27 @@ frontend/
 - ✅ Top 3 do ranking
 - ✅ Layout responsivo em grid
 
+### 📚 Lista de Conteúdos (`/contents`)
+- ✅ Barra de pesquisa funcional
+- ✅ Filtros por categoria (chips clicáveis)
+- ✅ Grid responsivo de conteúdos (1/2/3 colunas)
+- ✅ Cards com imagens, título, resumo
+- ✅ Badges de categoria com cores
+- ✅ Metadata (tempo de leitura, visualizações)
+- ✅ Contador de resultados
+- ✅ Estado vazio quando não há resultados
+
+### 📖 Detalhe de Conteúdo (`/contents/[id]`)
+- ✅ Hero image com gradiente overlay
+- ✅ Título e metadata (data, tempo, visualizações)
+- ✅ Badge de categoria
+- ✅ Resumo destacado
+- ✅ Conteúdo completo formatado
+- ✅ Botões de ação (Guardar, Partilhar, Marcar como Lido)
+- ✅ Sidebar com conteúdos relacionados
+- ✅ CTA para quizzes
+- ✅ Card de progresso do utilizador
+
 ### 🎨 Componentes UI
 - ✅ **Button**: 4 variantes (primary, secondary, outline, ghost)
 - ✅ **Card**: Card, CardHeader, CardTitle, CardContent
@@ -156,12 +177,14 @@ Abra [http://localhost:3000](http://localhost:3000) no navegador.
 
 ### Rotas Protegidas (Dashboard)
 - `/dashboard` → Dashboard principal
+- `/contents` → Lista de conteúdos
+- `/contents/[id]` → Detalhe de conteúdo
 
 ## 📝 Páginas a Implementar
 
 ### Sprint 2-3
-- [ ] `/contents` - Lista completa de conteúdos
-- [ ] `/contents/[id]` - Visualização de conteúdo individual
+- [x] `/contents` - Lista completa de conteúdos ✅
+- [x] `/contents/[id]` - Visualização de conteúdo individual ✅
 - [ ] `/quizzes` - Lista de quizzes
 - [ ] `/quizzes/[id]` - Interface para realizar quiz
 - [ ] `/quizzes/[id]/result` - Resultado do quiz com feedback
@@ -182,8 +205,8 @@ Abra [http://localhost:3000](http://localhost:3000) no navegador.
 1. ✅ Landing page
 2. ✅ Login/Register
 3. ✅ Dashboard
-4. ⏳ Lista de conteúdos
-5. ⏳ Detalhe de conteúdo
+4. ✅ Lista de conteúdos
+5. ✅ Detalhe de conteúdo
 6. ⏳ Lista de quizzes
 7. ⏳ Interface de quiz
 8. ⏳ Resultado de quiz
@@ -272,5 +295,5 @@ Cada route group pode ter seu próprio `layout.tsx`.
 
 **Criado em**: 28 de maio de 2026  
 **Atualizado em**: 1 de junho de 2026  
-**Status**: ✅ MVP Fase 1 Completo (Landing + Auth + Dashboard)
+**Status**: ✅ MVP Fase 1 Completo (Landing + Auth + Dashboard + Contents)
 

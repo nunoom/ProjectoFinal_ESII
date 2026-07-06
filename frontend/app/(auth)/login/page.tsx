@@ -3,44 +3,55 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, Check } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { apiLogin, ApiError } from '@/lib/api';
 
 export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validação simples
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.email) {
       newErrors.email = 'Email é obrigatório';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email inválido';
     }
-    
+
     if (!formData.password) {
       newErrors.password = 'Password é obrigatória';
     }
-    
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
-    // Mock login - em produção, chamar API
-    console.log('Login:', formData);
-    
-    // Simular sucesso e redirecionar para dashboard
-    router.push('/dashboard');
+
+    setSubmitting(true);
+    try {
+      await apiLogin(formData.email, formData.password);
+      router.push('/dashboard');
+    } catch (error) {
+      setSubmitting(false);
+      if (error instanceof ApiError) {
+        setErrors({ password: error.message });
+      } else {
+        setErrors({
+          password: 'Não foi possível ligar ao servidor. Verifique se o backend está a correr.',
+        });
+      }
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -171,8 +182,8 @@ export default function LoginPage() {
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" variant="primary" size="lg" className="w-full">
-              Entrar
+            <Button type="submit" variant="primary" size="lg" className="w-full" disabled={submitting}>
+              {submitting ? 'A entrar...' : 'Entrar'}
             </Button>
 
             {/* Divider */}
@@ -241,19 +252,19 @@ export default function LoginPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                    ✓
+                    <Check className="h-5 w-5" />
                   </div>
                   <span>Mais de 500 conteúdos educacionais</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                    ✓
+                    <Check className="h-5 w-5" />
                   </div>
                   <span>200+ quizzes interativos</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                    ✓
+                    <Check className="h-5 w-5" />
                   </div>
                   <span>Comunidade ativa de estudantes</span>
                 </div>

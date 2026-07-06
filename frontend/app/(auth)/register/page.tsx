@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, Check } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { apiRegister, ApiError } from '@/lib/api';
 
 export default function RegisterPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,7 +21,7 @@ export default function RegisterPage() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validação
@@ -58,11 +60,21 @@ export default function RegisterPage() {
       return;
     }
     
-    // Mock register - em produção, chamar API
-    console.log('Register:', formData);
-    
-    // Simular sucesso e redirecionar para dashboard
-    router.push('/dashboard');
+    setSubmitting(true);
+    try {
+      await apiRegister(formData.name, formData.email, formData.password);
+      // Conta criada: falta verificar o email com o código enviado
+      router.push(`/verify-email?email=${encodeURIComponent(formData.email)}`);
+    } catch (error) {
+      setSubmitting(false);
+      if (error instanceof ApiError) {
+        setErrors({ email: error.message });
+      } else {
+        setErrors({
+          email: 'Não foi possível ligar ao servidor. Verifique se o backend está a correr.',
+        });
+      }
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,19 +106,19 @@ export default function RegisterPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                    ✓
+                    <Check className="h-5 w-5" />
                   </div>
                   <span>Acesso gratuito a todos os conteúdos</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                    ✓
+                    <Check className="h-5 w-5" />
                   </div>
                   <span>Certificados de conclusão</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                    ✓
+                    <Check className="h-5 w-5" />
                   </div>
                   <span>Participe em discussões e fóruns</span>
                 </div>
@@ -301,8 +313,8 @@ export default function RegisterPage() {
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" variant="primary" size="lg" className="w-full">
-              Criar conta
+            <Button type="submit" variant="primary" size="lg" className="w-full" disabled={submitting}>
+              {submitting ? 'A criar conta...' : 'Criar conta'}
             </Button>
 
             {/* Divider */}

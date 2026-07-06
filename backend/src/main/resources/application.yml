@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: eha-backend
+  profiles:
+    default: dev
+  jpa:
+    open-in-view: false
+
+eha:
+  jwt:
+    # Em produção definir via variável de ambiente EHA_JWT_SECRET
+    secret: ${EHA_JWT_SECRET:eha-isptec-2026-segredo-de-desenvolvimento-nao-usar-em-producao!}
+    access-expiration-ms: 3600000        # 1 hora
+    refresh-expiration-ms: 604800000     # 7 dias
+  cors:
+    allowed-origins: ${EHA_CORS_ORIGINS:http://localhost:3000,http://localhost:8081,http://localhost:19006}
+
+server:
+  port: 8080

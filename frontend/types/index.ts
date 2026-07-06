@@ -5,6 +5,7 @@ export interface User {
   name: string;
   email: string;
   photoUrl?: string;
+  bio?: string;
   points: number;
   level: number;
   role: 'USER' | 'MODERATOR' | 'ADMIN';
@@ -38,6 +39,8 @@ export interface Question {
   text: string;
   type: 'MULTIPLE_CHOICE' | 'TRUE_FALSE';
   options: QuestionOption[];
+  correctOptionId: number;
+  explanation?: string;
 }
 
 export interface QuestionOption {
@@ -57,6 +60,7 @@ export interface RankingEntry {
 export interface ForumTopic {
   id: number;
   title: string;
+  description?: string;
   category: string;
   author: {
     id: number;
@@ -67,6 +71,48 @@ export interface ForumTopic {
   views: number;
   lastReplyAt: string;
   createdAt: string;
+}
+
+export interface ForumReply {
+  id: number;
+  topicId: number;
+  author: {
+    id: number;
+    name: string;
+    photoUrl?: string;
+  };
+  text: string;
+  likes: number;
+  createdAt: string;
+}
+
+export interface QuizResult {
+  quizId: number;
+  answers: Record<number, number>;
+  correctCount: number;
+  totalQuestions: number;
+  pointsEarned: number;
+  timeSpent: number;
+  completedAt: string;
+}
+
+// Vista de resultado guardada em sessionStorage entre a página do quiz e a de resultado.
+// Produzida tanto pela correção local (mock) como pela resposta da API.
+export interface QuizResultView {
+  quizId: number;
+  quizTitle: string;
+  score: number;
+  correctCount: number;
+  totalQuestions: number;
+  pointsEarned: number;
+  timeSpent: number;
+  review: {
+    question: string;
+    selectedText: string | null;
+    correctText: string;
+    correct: boolean;
+    explanation?: string;
+  }[];
 }
 
 export interface Badge {

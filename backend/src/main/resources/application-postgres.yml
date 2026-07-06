@@ -1,0 +1,10 @@
+# Perfil PostgreSQL 15 (docs/database/02-schema.md). Subir a BD com: docker compose up -d postgres
+spring:
+  datasource:
+    url: ${EHA_DB_URL:jdbc:postgresql://localhost:5432/eha}
+    driver-class-name: org.postgresql.Driver
+    username: ${EHA_DB_USER:eha}
+    password: ${EHA_DB_PASSWORD:eha2026}
+  jpa:
+    hibernate:
+      ddl-auto: update

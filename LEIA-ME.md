@@ -320,14 +320,24 @@ cat docs/sprints/sprint-01.md
 
 | Componente | Status | Progresso |
 |-----------|--------|-----------|
-| Documentação | ✅ Completa | 70% |
-| Protótipo | ⏳ Pendente | 0% |
-| Backend | ⏳ Pendente | 0% |
-| Frontend | ⏳ Pendente | 0% |
-| Mobile | ⏳ Pendente | 0% |
-| Testes | ⏳ Pendente | 0% |
-| Deploy | ⏳ Pendente | 0% |
-| **GERAL** | **📝 Planeamento** | **10%** |
+| Documentação | ✅ Completa | 100% |
+| Protótipo | ✅ Completo (frontend funcional) | 100% |
+| Backend | ✅ Spring Boot 3 + JWT + PostgreSQL/H2 (14 testes verdes) | 100% |
+| Frontend | ✅ 21 rotas integradas com a API (fallback mock) | 100% |
+| Mobile | ✅ 17 ecrãs integrados com a API (fallback mock) | 100% |
+| Testes | ✅ Backend: 14 testes de integração · builds verdes | 100% |
+| CI/CD | ✅ GitHub Actions (backend + frontend + mobile) | 100% |
+| Deploy | ⏳ Pendente (docker-compose pronto para a BD) | 0% |
+| **GERAL** | **✅ Implementado** | **~95%** |
+
+> **Nota (julho 2026)**: Projeto implementado de ponta a ponta.
+> **Backend** (`backend/`): Spring Boot 3, Java 17, Spring Security + JWT, JPA, seed de dados,
+> endpoints conforme `docs/api/01-endpoints.md`, perfis H2 (dev) e PostgreSQL (produção,
+> via `docker compose up -d postgres`). **Frontend** (Next.js 16): todas as páginas — landing,
+> autenticação real com JWT, dashboard, conteúdos, quizzes com correção no servidor, ranking,
+> fórum persistido, perfil, páginas auxiliares — com fallback automático para dados mock quando
+> a API está desligada. **Mobile** (Expo SDK 54): login/registo reais + ecrãs ligados à API com
+> o mesmo fallback. Instruções de execução no [README.md](README.md).
 
 ---
 

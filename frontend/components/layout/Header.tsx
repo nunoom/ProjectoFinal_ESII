@@ -1,11 +1,26 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Search, Bell, User, Menu } from 'lucide-react';
-import { mockUser } from '@/data/mockData';
-import Button from '../ui/Button';
+import { useRouter } from 'next/navigation';
+import { Search, Bell, Menu, LogOut } from 'lucide-react';
+import { getStoredUser, clearAuth } from '@/lib/api';
+import { User } from '@/types';
 
 export default function Header() {
+  const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+
+  // Sessão real (localStorage); o layout protegido garante que existe
+  useEffect(() => {
+    setUser(getStoredUser());
+  }, []);
+
+  const handleLogout = () => {
+    clearAuth();
+    router.push('/login');
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -43,19 +58,33 @@ export default function Header() {
           </button>
 
           {/* User Menu */}
-          <div className="flex items-center space-x-3 rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50 cursor-pointer">
-            <img
-              src={mockUser.photoUrl}
-              alt={mockUser.name}
-              className="h-8 w-8 rounded-full"
-            />
-            <div className="hidden md:block text-left">
-              <p className="text-sm font-medium text-gray-900">{mockUser.name}</p>
-              <p className="text-xs text-gray-500">
-                Nível {mockUser.level} • {mockUser.points} pts
-              </p>
-            </div>
-          </div>
+          {user && (
+            <Link
+              href="/profile"
+              className="flex items-center space-x-3 rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50 cursor-pointer"
+            >
+              <img
+                src={user.photoUrl}
+                alt={user.name}
+                className="h-8 w-8 rounded-full"
+              />
+              <div className="hidden md:block text-left">
+                <p className="text-sm font-medium text-gray-900">{user.name}</p>
+                <p className="text-xs text-gray-500">
+                  Nível {user.level} • {user.points} pts
+                </p>
+              </div>
+            </Link>
+          )}
+
+          {/* Logout */}
+          <button
+            onClick={handleLogout}
+            className="rounded-lg p-2 hover:bg-gray-100"
+            title="Terminar sessão"
+          >
+            <LogOut className="h-5 w-5 text-gray-600" />
+          </button>
 
           {/* Mobile Menu */}
           <button className="md:hidden rounded-lg p-2 hover:bg-gray-100">
