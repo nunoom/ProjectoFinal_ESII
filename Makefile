@@ -34,13 +34,28 @@ db-down: ## Pára o PostgreSQL
 
 # ---------- Backend ----------
 
+# Se backend/.env existir com MAIL_HOST definido, ativa o envio real de emails
+# (código de verificação) através das propriedades standard do Spring Mail.
+define RUN_BACKEND
+	cd backend && sh -c 'set -a; [ -f .env ] && . ./.env; set +a; \
+	  if [ -n "$$MAIL_HOST" ]; then \
+	    export SPRING_MAIL_HOST="$$MAIL_HOST" SPRING_MAIL_PORT="$$MAIL_PORT" \
+	      SPRING_MAIL_USERNAME="$$MAIL_USERNAME" \
+	      SPRING_MAIL_PASSWORD="$$(printf %s "$$MAIL_PASSWORD" | tr -d "\" ")" \
+	      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true \
+	      SPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_ENABLE=true \
+	      EHA_MAIL_FROM="$$MAIL_FROM_ADDRESS"; \
+	  fi; \
+	  JAVA_HOME="$(JAVA_HOME_17)" mvn spring-boot:run $(1)'
+endef
+
 .PHONY: backend
-backend: ## Arranca a API em :8080 (H2 em memória, sem dependências)
-	cd backend && $(MVN) spring-boot:run
+backend: ## Arranca a API em :8080 (H2; emails reais se backend/.env tiver MAIL_HOST)
+	$(call RUN_BACKEND,)
 
 .PHONY: backend-postgres
 backend-postgres: ## Arranca a API com PostgreSQL (requer make db-up)
-	cd backend && $(MVN) spring-boot:run -Dspring-boot.run.profiles=postgres
+	$(call RUN_BACKEND,-Dspring-boot.run.profiles=postgres)
 
 .PHONY: backend-test
 backend-test: ## Corre os testes de integração do backend

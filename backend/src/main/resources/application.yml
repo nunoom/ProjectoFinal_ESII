@@ -17,3 +17,9 @@ eha:
 
 server:
   port: 8080
+
+management:
+  health:
+    mail:
+      # o health check não deve abrir ligações SMTP a cada pedido
+      enabled: false
