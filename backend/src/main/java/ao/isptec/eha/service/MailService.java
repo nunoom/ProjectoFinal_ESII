@@ -6,6 +6,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +14,10 @@ import org.springframework.stereotype.Service;
  * envia emails reais; sem SMTP, escreve o conteúdo no log — o código de
  * verificação aparece na consola do backend, útil em desenvolvimento e
  * demonstrações.
+ *
+ * O envio é assíncrono: o pedido HTTP (registo, recuperação) responde de
+ * imediato mesmo que o servidor SMTP esteja lento ou bloqueado pelo host.
+ * Em caso de falha, o código fica no log.
  */
 @Service
 public class MailService {
@@ -21,13 +26,17 @@ public class MailService {
 
     private final ObjectProvider<JavaMailSender> mailSenderProvider;
     private final String from;
+    private final String brevoApiKey;
 
     public MailService(ObjectProvider<JavaMailSender> mailSenderProvider,
-                       @Value("${eha.mail.from:no-reply@eha.ao}") String from) {
+                       @Value("${eha.mail.from:no-reply@eha.ao}") String from,
+                       @Value("${eha.mail.brevo-api-key:}") String brevoApiKey) {
         this.mailSenderProvider = mailSenderProvider;
         this.from = from;
+        this.brevoApiKey = brevoApiKey;
     }
 
+    @Async
     public void sendVerificationCode(String to, String name, String code) {
         String subject = "EHA — Código de verificação";
         String body = """
