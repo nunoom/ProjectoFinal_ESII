@@ -4,12 +4,15 @@
 import { Platform } from 'react-native';
 import { User, Content, Quiz, RankingEntry, ForumTopic, Badge } from '../types';
 
-// No emulador Android, "localhost" é o próprio emulador — usar 10.0.2.2.
-// Num dispositivo físico, substituir pelo IP da máquina que corre o backend.
-const API_URL = Platform.select({
-  android: 'http://10.0.2.2:8080/api',
-  default: 'http://localhost:8080/api',
-});
+// Em produção, definir EXPO_PUBLIC_API_URL (ex.: https://eha-api.up.railway.app/api).
+// Sem essa variável, usa o backend local: no emulador Android "localhost" é o
+// próprio emulador, por isso usa-se 10.0.2.2.
+const API_URL =
+  process.env.EXPO_PUBLIC_API_URL ??
+  Platform.select({
+    android: 'http://10.0.2.2:8080/api',
+    default: 'http://localhost:8080/api',
+  });
 
 export class ApiError extends Error {
   status: number;
@@ -94,6 +97,26 @@ export async function resendCode(email: string): Promise<string> {
   const data = await apiFetch<{ message: string }>('/auth/resend-code', {
     method: 'POST',
     body: JSON.stringify({ email }),
+  });
+  return data.message;
+}
+
+export async function forgotPassword(email: string): Promise<string> {
+  const data = await apiFetch<{ message: string }>('/auth/forgot-password', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+  return data.message;
+}
+
+export async function resetPassword(
+  email: string,
+  code: string,
+  newPassword: string
+): Promise<string> {
+  const data = await apiFetch<{ message: string }>('/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ email, code, newPassword }),
   });
   return data.message;
 }

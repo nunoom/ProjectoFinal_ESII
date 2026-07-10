@@ -1,0 +1,49 @@
+# Auto-hospedar o backend + PostgreSQL num único servidor com um comando:
+#   docker compose -f docker-compose.prod.yml up -d --build
+#
+# Antes, criar um ficheiro .env na raiz (ver .env.prod.example) com o segredo JWT,
+# as origens CORS (URL do frontend) e as credenciais SMTP para os emails.
+services:
+  postgres:
+    image: postgres:15
+    container_name: eha-postgres
+    environment:
+      POSTGRES_DB: eha
+      POSTGRES_USER: eha
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-eha2026}
+    volumes:
+      - eha_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eha"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: eha-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      EHA_DB_URL: jdbc:postgresql://postgres:5432/eha
+      EHA_DB_USER: eha
+      EHA_DB_PASSWORD: ${DB_PASSWORD:-eha2026}
+      EHA_JWT_SECRET: ${EHA_JWT_SECRET:?define um segredo JWT no .env}
+      EHA_CORS_ORIGINS: ${EHA_CORS_ORIGINS:-http://localhost:3000}
+      # SMTP para os emails de verificação/recuperação (opcional)
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST:-}
+      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-465}
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME:-}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD:-}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_ENABLE: "true"
+      EHA_MAIL_FROM: ${EHA_MAIL_FROM:-no-reply@eha.ao}
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  eha_pgdata:

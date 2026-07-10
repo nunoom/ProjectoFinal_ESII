@@ -25,6 +25,11 @@ public final class AuthDtos {
 
     public record ResendCodeRequest(@NotBlank @Email String email) {}
 
+    public record ResetPasswordRequest(
+            @NotBlank @Email String email,
+            @NotBlank String code,
+            @NotBlank @Size(min = 6, max = 100) String newPassword) {}
+
     public record AuthResponse(String token, String refreshToken, CommonDtos.UserDto user) {}
 
     public record TokenPairResponse(String token, String refreshToken) {}

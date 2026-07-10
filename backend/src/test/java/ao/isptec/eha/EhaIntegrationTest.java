@@ -290,6 +290,60 @@ class EhaIntegrationTest {
                 .andExpect(jsonPath("$.bio").value("Nova bio"));
     }
 
+    // ---------- Recuperação de password ----------
+
+    @Test
+    @Order(15)
+    void forgotPasswordResetsAndOldPasswordStopsWorking() throws Exception {
+        // Pedido de recuperação devolve mensagem genérica
+        mockMvc.perform(post("/api/auth/forgot-password")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"email":"sofia@example.com"}
+                                """))
+                .andExpect(status().isOk());
+
+        // Código errado é rejeitado
+        mockMvc.perform(post("/api/auth/reset-password")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"email":"sofia@example.com","code":"000000","newPassword":"NovaSenha456!"}
+                                """))
+                .andExpect(status().isBadRequest());
+
+        // Redefinir com o código real (em produção chega por email)
+        String code = userRepository.findByEmail("sofia@example.com").orElseThrow().getResetCode();
+        mockMvc.perform(post("/api/auth/reset-password")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"sofia@example.com\",\"code\":\"" + code
+                                + "\",\"newPassword\":\"NovaSenha456!\"}"))
+                .andExpect(status().isOk());
+
+        // Password antiga deixa de funcionar
+        mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"email":"sofia@example.com","password":"Password123!"}
+                                """))
+                .andExpect(status().isUnauthorized());
+
+        // Password nova funciona
+        mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"email":"sofia@example.com","password":"NovaSenha456!"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.token").isNotEmpty());
+
+        // Código não pode ser reutilizado
+        mockMvc.perform(post("/api/auth/reset-password")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"sofia@example.com\",\"code\":\"" + code
+                                + "\",\"newPassword\":\"OutraSenha789!\"}"))
+                .andExpect(status().isBadRequest());
+    }
+
     private String loginAndGetToken(String email) throws Exception {
         MvcResult result = mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)

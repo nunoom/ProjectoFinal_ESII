@@ -45,7 +45,11 @@ public class AuthController {
 
     @PostMapping("/forgot-password")
     public MessageResponse forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
-        // Resposta genérica para não revelar se o email existe
-        return new MessageResponse("Se existir uma conta com este email, receberá instruções de recuperação");
+        return authService.forgotPassword(request);
+    }
+
+    @PostMapping("/reset-password")
+    public MessageResponse resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        return authService.resetPassword(request);
     }
 }

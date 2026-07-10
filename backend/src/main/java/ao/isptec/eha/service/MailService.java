@@ -41,10 +41,31 @@ public class MailService {
 
                 Se não criou esta conta, ignore este email.
                 """.formatted(name, code);
+        send(to, subject, body, code, "código de verificação");
+    }
 
+    public void sendPasswordResetCode(String to, String name, String code) {
+        String subject = "EHA — Recuperação de password";
+        String body = """
+                Olá %s,
+
+                Recebemos um pedido para redefinir a password da sua conta na plataforma
+                Economia com História: Angola. Use o seguinte código:
+
+                    %s
+
+                O código é válido durante 1 hora.
+
+                Se não pediu a recuperação da password, ignore este email — a sua conta
+                permanece segura.
+                """.formatted(name, code);
+        send(to, subject, body, code, "código de recuperação");
+    }
+
+    private void send(String to, String subject, String body, String code, String descricao) {
         JavaMailSender sender = mailSenderProvider.getIfAvailable();
         if (sender == null) {
-            log.info("SMTP não configurado — código de verificação para {}: {}", to, code);
+            log.info("SMTP não configurado — {} para {}: {}", descricao, to, code);
             return;
         }
         try {
@@ -54,9 +75,9 @@ public class MailService {
             message.setSubject(subject);
             message.setText(body);
             sender.send(message);
-            log.info("Email de verificação enviado para {}", to);
+            log.info("Email ({}) enviado para {}", descricao, to);
         } catch (Exception e) {
-            // Não bloquear o registo por falha de SMTP; o código fica no log
+            // Não bloquear a operação por falha de SMTP; o código fica no log
             log.warn("Falha ao enviar email para {} ({}). Código: {}", to, e.getMessage(), code);
         }
     }

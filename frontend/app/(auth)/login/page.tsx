@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Mail, Lock, Eye, EyeOff, Check } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, Check, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { apiLogin, ApiError } from '@/lib/api';
 
@@ -11,6 +11,17 @@ export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [banner, setBanner] = useState('');
+
+  // Mensagem de sucesso ao voltar da verificação de email ou da redefinição de password
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('reset') === '1') {
+      setBanner('Password redefinida com sucesso. Inicie sessão com a nova password.');
+    } else if (params.get('verified') === '1') {
+      setBanner('Email verificado com sucesso. Já pode iniciar sessão.');
+    }
+  }, []);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -90,6 +101,13 @@ export default function LoginPage() {
               </Link>
             </p>
           </div>
+
+          {banner && (
+            <div className="mt-6 flex items-start gap-2 rounded-lg border border-green-200 bg-green-50 p-3">
+              <CheckCircle2 className="h-5 w-5 shrink-0 text-green-600" />
+              <p className="text-sm text-green-700">{banner}</p>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-6">
             {/* Email */}

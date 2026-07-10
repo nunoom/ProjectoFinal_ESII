@@ -44,6 +44,10 @@ public class User {
 
     private Instant verificationExpiresAt;
 
+    private String resetCode;
+
+    private Instant resetExpiresAt;
+
     @Column(nullable = false)
     private Instant createdAt = Instant.now();
 
@@ -84,6 +88,10 @@ public class User {
     public void setVerificationCode(String verificationCode) { this.verificationCode = verificationCode; }
     public Instant getVerificationExpiresAt() { return verificationExpiresAt; }
     public void setVerificationExpiresAt(Instant verificationExpiresAt) { this.verificationExpiresAt = verificationExpiresAt; }
+    public String getResetCode() { return resetCode; }
+    public void setResetCode(String resetCode) { this.resetCode = resetCode; }
+    public Instant getResetExpiresAt() { return resetExpiresAt; }
+    public void setResetExpiresAt(Instant resetExpiresAt) { this.resetExpiresAt = resetExpiresAt; }
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }

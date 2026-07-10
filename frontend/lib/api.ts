@@ -139,6 +139,26 @@ export async function resendCodeApi(email: string): Promise<string> {
   return data.message;
 }
 
+export async function forgotPasswordApi(email: string): Promise<string> {
+  const data = await apiFetch<{ message: string }>('/auth/forgot-password', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+  return data.message;
+}
+
+export async function resetPasswordApi(
+  email: string,
+  code: string,
+  newPassword: string
+): Promise<string> {
+  const data = await apiFetch<{ message: string }>('/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ email, code, newPassword }),
+  });
+  return data.message;
+}
+
 export async function fetchMe(): Promise<User> {
   const user = toUser(await apiFetch<ApiUser>('/users/me'));
   storeUser(user);

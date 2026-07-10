@@ -20,6 +20,7 @@ import java.time.Instant;
 public class AuthService {
 
     private static final Duration CODE_VALIDITY = Duration.ofHours(24);
+    private static final Duration RESET_VALIDITY = Duration.ofHours(1);
     private static final SecureRandom RANDOM = new SecureRandom();
 
     private final UserRepository userRepository;
@@ -86,6 +87,39 @@ public class AuthService {
         return new MessageResponse("Se existir uma conta por verificar, foi enviado um novo código.");
     }
 
+    @Transactional
+    public MessageResponse forgotPassword(ForgotPasswordRequest request) {
+        userRepository.findByEmail(request.email().toLowerCase())
+                .ifPresent(user -> {
+                    user.setResetCode(generateCode());
+                    user.setResetExpiresAt(Instant.now().plus(RESET_VALIDITY));
+                    mailService.sendPasswordResetCode(user.getEmail(), user.getName(),
+                            user.getResetCode());
+                });
+        // Resposta genérica para não revelar se o email existe
+        return new MessageResponse(
+                "Se existir uma conta com este email, foi enviado um código de recuperação.");
+    }
+
+    @Transactional
+    public MessageResponse resetPassword(ResetPasswordRequest request) {
+        User user = userRepository.findByEmail(request.email().toLowerCase())
+                .orElseThrow(() -> new BadRequestException("Código inválido ou expirado"));
+        boolean valid = user.getResetCode() != null
+                && user.getResetCode().equals(request.code())
+                && user.getResetExpiresAt() != null
+                && user.getResetExpiresAt().isAfter(Instant.now());
+        if (!valid) {
+            throw new BadRequestException("Código inválido ou expirado");
+        }
+        user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
+        user.setResetCode(null);
+        user.setResetExpiresAt(null);
+        // A posse do código prova o controlo do email, pelo que fica verificado
+        user.setEmailVerified(true);
+        return new MessageResponse("Password redefinida com sucesso. Pode iniciar sessão.");
+    }
+
     public AuthResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.email().toLowerCase())
                 .orElseThrow(() -> new UnauthorizedException("Email ou password incorretos"));
@@ -113,7 +147,11 @@ public class AuthService {
     }
 
     private void assignVerificationCode(User user) {
-        user.setVerificationCode(String.format("%06d", RANDOM.nextInt(1_000_000)));
+        user.setVerificationCode(generateCode());
         user.setVerificationExpiresAt(Instant.now().plus(CODE_VALIDITY));
+    }
+
+    private String generateCode() {
+        return String.format("%06d", RANDOM.nextInt(1_000_000));
     }
 }

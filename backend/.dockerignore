@@ -1,0 +1,20 @@
+# Só o monolito (pom.xml + src) entra na imagem
+target/
+*/target/
+.env
+.git
+.idea
+*.iml
+.vscode
+
+# Microserviços do repo não fazem parte desta imagem
+api-gateway/
+auth-service/
+user-service/
+content-service/
+quiz-service/
+gamification-service/
+forum-service/
+notification-service/
+backoffice-service/
+docker/

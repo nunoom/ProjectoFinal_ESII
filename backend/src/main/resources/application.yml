@@ -16,7 +16,8 @@ eha:
     allowed-origins: ${EHA_CORS_ORIGINS:http://localhost:3000,http://localhost:8081,http://localhost:19006}
 
 server:
-  port: 8080
+  # A porta vem do ambiente ($PORT no Railway/Render); 8080 em local
+  port: ${PORT:8080}
 
 management:
   health:
